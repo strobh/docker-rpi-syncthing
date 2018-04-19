@@ -50,7 +50,7 @@ fi
 
 # generate initial config if necessary
 if [ ! -f $CONFIG_FILE ]; then
-    syncthing -generate=$CONFIG_DIR
+    ./syncthing -generate=$CONFIG_DIR
     config_del "folder"
     config_set "options/startBrowser" "false"
 fi
