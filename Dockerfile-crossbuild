@@ -1,4 +1,6 @@
-FROM alpine
+FROM resin/raspberry-pi-alpine:3.4
+
+RUN [ "cross-build-start" ]
 
 RUN addgroup -g 1000 syncthing \
     && adduser -D -u 1000 -G syncthing -s /sbin/nologin -g "" -h /syncthing syncthing
@@ -42,6 +44,8 @@ VOLUME /syncthing/config /syncthing/data
 
 HEALTHCHECK --interval=1m --timeout=10s \
     CMD nc -z localhost 22000 || exit 1
+
+RUN [ "cross-build-end" ] 
 
 USER syncthing
 
