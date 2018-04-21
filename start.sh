@@ -51,12 +51,13 @@ fi
 # generate initial config if necessary
 if [ ! -f $CONFIG_FILE ]; then
     ./syncthing -generate=$CONFIG_DIR
+
+    # delete default folders and disable startBrowser
     config_del "folder"
     config_set "options/startBrowser" "false"
 fi
 
 # ensure the default folder points to the data volume
-
 config_set "options/defaultFolderPath" "/syncthing/data"
 
 # update config.xml according to environment variables
