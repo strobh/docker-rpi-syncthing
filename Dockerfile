@@ -86,10 +86,13 @@ RUN apk del .build-deps \
 
 USER syncthing
 
+# Create volume directories
 RUN mkdir -p /syncthing/config \
     && mkdir -p /syncthing/data
 
+# Copy entrypoint to image and make executable
 COPY --chown=syncthing:syncthing start.sh /syncthing/
 RUN chmod 0755 /syncthing/start.sh
 
+# Entrypoint
 CMD /syncthing/start.sh
