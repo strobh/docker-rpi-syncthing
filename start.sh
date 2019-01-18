@@ -50,7 +50,7 @@ fi
 
 # generate initial config if necessary
 if [ ! -f $CONFIG_FILE ]; then
-    ./syncthing -generate=$CONFIG_DIR
+    /usr/local/bin/syncthing -generate=$CONFIG_DIR
 
     # delete default folders and disable startBrowser
     config_del "folder"
@@ -85,10 +85,10 @@ if [ -f "/pre-launch.sh" ]; then
     source /pre-launch.sh
 fi
 
-./syncthing -home=$CONFIG_DIR -paths
+/usr/local/bin/syncthing -home=$CONFIG_DIR -paths
 echo "======== config.xml ========"
 cat $CONFIG_FILE
 echo "============================"
-./syncthing -home=$CONFIG_DIR
+exec /usr/local/bin/syncthing -home=$CONFIG_DIR
 
 exit 1
