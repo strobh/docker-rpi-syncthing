@@ -78,7 +78,8 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv-key D26E6ED000654A3E \
     && grep syncthing-linux-arm- sha256sum.txt.asc | sha256sum -c \
     && tar -zxf syncthing-linux-arm-v${BUILD_VERSION}.tar.gz \
     && mv syncthing-linux-arm-v${BUILD_VERSION}/syncthing /usr/local/bin/syncthing \
-    && rm -rf syncthing-linux-arm-v${BUILD_VERSION} sha256sum.txt.asc syncthing-linux-arm-v${BUILD_VERSION}.tar.gz
+    && rm -rf syncthing-linux-arm-v${BUILD_VERSION} sha256sum.txt.asc syncthing-linux-arm-v${BUILD_VERSION}.tar.gz \
+    && rm -rf /root/.gnupg
 
 # Delete build dependencies
 RUN apk del .build-deps \
@@ -89,7 +90,7 @@ USER syncthing
 RUN mkdir -p /syncthing/config \
     && mkdir -p /syncthing/data
 
-COPY start.sh /syncthing/
+COPY --chown=syncthing:syncthing /syncthing/
 RUN chmod 0755 /syncthing/start.sh
 
 CMD /syncthing/start.sh
