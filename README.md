@@ -6,7 +6,9 @@ The image is based on the official Syncthing ARMv7 build and is automatically up
 
 ## Build the image
 
-To build the image using `docker` run:
+If you want to use the prebuilt image from Docker Hub ([strobi/rpi-syncthing](https://cloud.docker.com/u/strobi/repository/docker/strobi/rpi-syncthing)) you can skip this step.
+
+Build the image using `docker build`:
 
 ```bash
 # BUILD_VERSION determines which version of syncthing is used for the image
@@ -21,7 +23,9 @@ docker build --no-cache --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') 
 
 ## Start the container
 
-To start the container using `docker` run:
+Make sure that the directories `~/syncthing/config` and `~/syncthing/data` exist on the host and that the default user `pi` (or more precisely the user with uid 1000 and gid 1000) has read and write permissions for the directories.
+
+Start the container using `docker run`:
 
 ```bash
 docker run -d -p 8384:8384 -p 22000:22000 -p 21027:21027 -v ~/syncthing/config:/syncthing/config -v ~/syncthing/data:/syncthing/data strobi/rpi-syncthing:latest
